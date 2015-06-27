@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        applicationId "wolf.de.justtestingsomestuff"
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            //runProguard false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+      //  packagingOptions {
+        //    exclude 'META-INF/LICENSE.txt'
+       // }
+    }
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.afollestad:material-dialogs:0.5.1'
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
+    //compile "org.apache.httpcomponents:httpmime:4.2.3"
+    //compile files('httpclient-4.3.6.jar')
+    //compile 'com.r0adkll:postoffice:1.1.9'
+}
