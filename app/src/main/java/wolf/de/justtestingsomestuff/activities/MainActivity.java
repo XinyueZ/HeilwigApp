@@ -243,9 +243,9 @@ public class MainActivity extends ActionBarActivity {
 
         if (settings.getBoolean("firststart", true)) {
 
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this, R.style.AlertDialogCustom)
                     .setTitle(R.string.hello_title)
-                    .setMessage(getString(R.string.hello_message) + aversion)
+                    .setMessage(getString(R.string.hello_message) + aversion + ".")
                     .setPositiveButton(android.R.string.ok, null)
                     .show();
 
