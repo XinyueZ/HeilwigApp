@@ -6,6 +6,8 @@
     <string name="hello_world">Hallo Welt!</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
+    <string name="hello_title">HeilwigApp - Willkommen</string>
+    <string name="hello_message">Willkommen in der HeilwigApp! Diese App wurde von Jossi Wolf programmiert. Version</string>
 
     <plurals name="numberOfNewArticles">
         <item quantity="one">%d new</item>

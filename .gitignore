@@ -4,3 +4,24 @@
 /.idea/libraries
 .DS_Store
 /build
+
+
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+*.properties
+.idea/
+gradle/*.*
+gradle/
+gradle*
+!gradle.properties
+ @XinyueZ
+  
+         
+Write

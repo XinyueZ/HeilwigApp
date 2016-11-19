@@ -1,5 +1,6 @@
 package wolf.de.justtestingsomestuff.activities;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Display;
@@ -21,16 +23,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.content.SharedPreferences;
-import android.app.Activity;
 
-/*import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;*/
+import java.util.ArrayList;
 
 import wolf.de.justtestingsomestuff.R;
 import wolf.de.justtestingsomestuff.adapter.DrawerAdapter;
@@ -39,38 +33,16 @@ import wolf.de.justtestingsomestuff.fragments.Exams_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Ha_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Vplan_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Web_Fragment;
-import wolf.de.justtestingsomestuff.fragments.Einstellungen_Fragment;
-import wolf.de.justtestingsomestuff.fragments.testlogin_Fragment;
 import wolf.de.justtestingsomestuff.ui.Items;
 
-import java.util.ArrayList;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
-import android.util.Log;
-
+/*import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-//import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;*/
+//import org.apache.http.client.HttpClient;
 /*import org.apache.http.HttpEntity;
 import org.apache.http.entity.*;
 import org.apache.http.client.ClientProtocolException;
@@ -94,15 +66,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 */
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
-import wolf.de.justtestingsomestuff.activities.HttpClient;
 
 
 
@@ -280,13 +243,10 @@ public class MainActivity extends ActionBarActivity {
 
         if (settings.getBoolean("firststart", true)) {
 
-            new MaterialDialog.Builder(this)
-                    .title("HeilwigApp - Willkommen")
-                    .content("Willkommen in der HeilwigApp! Diese App wurde von Jossi Wolf programmiert. Version " + aversion)
-                    .positiveText("Ok")
-                            //.negativeText("Nein")
-                            //.theme(Theme.DARK)
-                            // .neutralText("More info")
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.hello_title)
+                    .setMessage(getString(R.string.hello_message) + aversion)
+                    .setPositiveButton(android.R.string.ok, null)
                     .show();
 
 
