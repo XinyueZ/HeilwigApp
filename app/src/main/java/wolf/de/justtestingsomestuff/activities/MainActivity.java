@@ -2,12 +2,12 @@ package wolf.de.justtestingsomestuff.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,25 +15,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import wolf.de.justtestingsomestuff.R;
-import wolf.de.justtestingsomestuff.adapter.DrawerAdapter;
+import wolf.de.justtestingsomestuff.fragments.Einstellungen_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Essen_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Exams_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Ha_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Vplan_Fragment;
 import wolf.de.justtestingsomestuff.fragments.Web_Fragment;
-import wolf.de.justtestingsomestuff.ui.Items;
 
 /*import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -71,11 +63,7 @@ import android.app.Activity;
 
 public class MainActivity extends ActionBarActivity {
 
-    private String[] mDrawerTitles;
-    private TypedArray mDrawerIcons;
-    private ArrayList<Items> drawerItems;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -85,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
     private String wfragment;
     private static final String TAG = "MainActivity";
     private static final String URL = "http://www.yourdomain.com:80";
-
+    private NavigationView mNavigationView;
 
 
     @Override
@@ -96,21 +84,21 @@ public class MainActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) setSupportActionBar(toolbar);
 
-        mDrawerTitles = getResources().getStringArray(R.array.drawer_titles);
-        mDrawerIcons = getResources().obtainTypedArray(R.array.drawer_icons);
-        drawerItems = new ArrayList<Items>();
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        for (int i = 0; i < mDrawerTitles.length; i++) {
-            drawerItems.add(new Items(mDrawerTitles[i], mDrawerIcons.getResourceId(i, -(i + 1))));
-        }
+        // Drawer, navigation-view
+        mNavigationView = (NavigationView)findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem ) {
+                menuItem.setChecked( true );
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                setTitle(menuItem.getTitle());
+                selectItem(menuItem.getItemId());
+                return true;
+            }
+        } );
+        mNavigationView.getLayoutParams().width = calculateDrawerWidth();
 
-
-
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new DrawerAdapter(getApplicationContext(), drawerItems));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,24 +126,6 @@ public class MainActivity extends ActionBarActivity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        LayoutInflater inflater = getLayoutInflater();
-        final ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header,
-                mDrawerList, false);
-
-        final ViewGroup footer = (ViewGroup) inflater.inflate(R.layout.footer,
-                mDrawerList, false);
-
-        // Give your Toolbar a subtitle!
-        /* mToolbar.setSubtitle("Subtitle"); */
-
-        mDrawerList.addHeaderView(header, null, true); // true = clickable
-        mDrawerList.addFooterView(footer, null, true); // true = clickable
-
-        //Set width of drawer
-        DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) mDrawerList.getLayoutParams();
-        lp.width = calculateDrawerWidth();
-        mDrawerList.setLayoutParams(lp);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -173,14 +143,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     /**
      * Swaps fragments in the main content view
@@ -190,35 +152,30 @@ public class MainActivity extends ActionBarActivity {
         Fragment fragment = null;
 
         switch (position) {
-            case 0:
-                //Account
-                //fragment= new Start_Fragment();
-                //fragment = new Web_Fragment();
-                break;
-            case 1:
+            case R.id.drawer_website:
                 fragment = new Web_Fragment();
                 wfragment = "web";
                 break;
-            case 2:
+            case  R.id.drawer_plan:
                 fragment = new Vplan_Fragment();
                 wfragment = "vplan";
                // fragment = new testlogin_Fragment();
                 break;
-            case 3:
+            case  R.id.drawer_tasks_system:
                 fragment = new Ha_Fragment();
                 wfragment = "ha";
                 break;
-            case 4:
+            case  R.id.drawer_class_jobs:
                 fragment = new Exams_Fragment();
                 wfragment = "exams";
                 break;
-            case 5:
+            case  R.id.drawer_canteen:
                 fragment = new Essen_Fragment();
                 wfragment = "essen";
                 break;
-            /*case 6:
+            case  R.id.drawer_settings:
                 fragment = new Einstellungen_Fragment();
-                break;*/
+                break;
 
         }
 
@@ -229,13 +186,6 @@ public class MainActivity extends ActionBarActivity {
                     .replace(R.id.main_content, fragment)
                     .commit();
         }
-
-        // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mDrawerTitles[position - 1]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-
-        updateView(position, position, true);
 
         final String PREFS_NAME = "hwgprefs";
 
@@ -453,49 +403,13 @@ public class MainActivity extends ActionBarActivity {
         return width - actionBarHeight;
     }
 
-    private void updateView(int position, int counter, boolean visible) {
-
-        View v = mDrawerList.getChildAt(position -
-                mDrawerList.getFirstVisiblePosition());
-        TextView someText = (TextView) v.findViewById(R.id.item_new);
-        Resources res = getResources();
-        String articlesFound = "";
-
-        switch (position) {
-            case 1:
-               /* articlesFound = res.getQuantityString(R.plurals.numberOfNewArticles, counter, counter);
-                someText.setBackgroundResource(R.drawable.new_apps);
-                break;*/
-            case 2:
-               /* articlesFound = res.getQuantityString(R.plurals.numberOfNewArticles, counter, counter);
-                someText.setBackgroundResource(R.drawable.new_sales);
-                break;*/
-            case 3:
-                /*articlesFound = res.getQuantityString(R.plurals.numberOfNewArticles, counter, counter);
-                someText.setBackgroundResource(R.drawable.new_blog);
-                break;
-              */
-            case 4:
-                /*articlesFound = res.getQuantityString(R.plurals.numberOfNewArticles, counter, counter);
-                someText.setBackgroundResource(R.drawable.new_bookmark);
-                break;*/
-            case 5:
-                /*articlesFound = res.getQuantityString(R.plurals.numberOfNewArticles, counter, counter);
-                someText.setBackgroundResource(R.drawable.new_community);
-                break;*/
+    @Override
+    public void onBackPressed() {
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mNavigationView);
+        if(drawerOpen) {
+            mDrawerLayout.closeDrawers();
+            return;
         }
-
-        someText.setText(articlesFound);
-        if (visible) someText.setVisibility(View.VISIBLE);
+        super.onBackPressed();
     }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-
-
 }

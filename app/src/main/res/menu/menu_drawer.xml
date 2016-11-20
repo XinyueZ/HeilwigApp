@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group  android:id="@+id/group_1"  android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_website"
+            android:icon="@drawable/ic_apps"
+            android:orderInCategory="0"
+            android:title="@string/drawer_website"/>
+        <item
+            android:id="@+id/drawer_plan"
+            android:icon="@drawable/ic_sales"
+            android:orderInCategory="0"
+            android:title="@string/drawer_plan"/>
+        <item
+            android:id="@+id/drawer_tasks_system"
+            android:icon="@drawable/ic_blog"
+            android:orderInCategory="0"
+            android:title="@string/drawer_tasks_system"/>
+        <item
+            android:id="@+id/drawer_class_jobs"
+            android:icon="@drawable/ic_bookmark"
+            android:orderInCategory="0"
+            android:title="@string/drawer_class_jobs"/>
+        <item
+            android:id="@+id/drawer_canteen"
+            android:icon="@drawable/ic_community"
+            android:orderInCategory="0"
+            android:title="@string/drawer_canteen"/>
+    </group>
+
+
+    <group  android:id="@+id/group_2"  android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@drawable/ic_settings"
+            android:orderInCategory="1"
+            android:title="@string/drawer_settings"/>
+        <item
+            android:id="@+id/drawer_feedback"
+            android:icon="@drawable/ic_help"
+            android:orderInCategory="1"
+            android:title="@string/drawer_feedback"/>
+
+    </group>
+</menu>

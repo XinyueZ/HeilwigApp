@@ -12,8 +12,6 @@
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:textColor">@color/text</item>
-
-
         <!--
             By default, the title text is pure black or pure white based on the theme.
 
@@ -76,6 +74,9 @@
         <item name="md_item_color">#9C27B0</item>
 
     </style>-->
-
+    <style name="NavDrawerItem" parent="@style/Theme.AppCompat.Light">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorSecondary">@color/text</item>
+    </style>
 
 </resources>

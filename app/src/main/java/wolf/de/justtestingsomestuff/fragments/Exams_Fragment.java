@@ -6,17 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.app.Activity;
-import android.os.Bundle;
-import android.webkit.WebView;
-import android.support.v4.app.FragmentActivity;
-import android.webkit.WebSettings;
 import android.widget.LinearLayout;
 
-
 import wolf.de.justtestingsomestuff.R;
-
+import wolf.de.justtestingsomestuff.web.ExWebViewClient;
 
 
 public class Exams_Fragment extends Fragment {
@@ -33,7 +26,7 @@ public class Exams_Fragment extends Fragment {
                 container, false);
 
         webView = (WebView) ll.findViewById(R.id.webView1);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new ExWebViewClient());
 
         if (webViewBundle == null) {
             webView.loadUrl("http://littleprogramms.pfweb.eu/stundenplan/get.php?sitename=Arbeitenplan&client=android");

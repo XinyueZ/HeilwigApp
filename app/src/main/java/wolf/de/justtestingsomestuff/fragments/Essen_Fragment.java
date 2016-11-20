@@ -6,19 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.app.Activity;
-import android.os.Bundle;
-import android.webkit.WebView;
-import android.support.v4.app.FragmentActivity;
-import android.webkit.WebSettings;
 import android.widget.LinearLayout;
-
 
 import java.util.Calendar;
 
 import wolf.de.justtestingsomestuff.R;
-
+import wolf.de.justtestingsomestuff.web.ExWebViewClient;
 
 
 public class Essen_Fragment extends Fragment {
@@ -38,7 +31,7 @@ public class Essen_Fragment extends Fragment {
         kw = "kw" + calender.get(Calendar.WEEK_OF_YEAR);
 
         webView = (WebView) ll.findViewById(R.id.webView1);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new ExWebViewClient());
 
         if (webViewBundle == null) {
             webView.loadUrl("http://heilwig.de/images/hwg/mammas/" + kw + ".png");
